@@ -1,6 +1,11 @@
 import { TextInput, TextInputProps } from 'react-native';
+
+// RFH
 import { Controller, FieldError } from 'react-hook-form';
+
+// Hooks
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 interface IProps extends TextInputProps {
   placeholder?: string;
@@ -8,12 +13,14 @@ interface IProps extends TextInputProps {
   control: any;
   errors: FieldError;
 }
-export default function Input({
+export default function PasswordInput({
   placeholder,
   control,
   name,
   ...props
 }: IProps) {
+  const [isPlain, set] = useState<boolean>();
+
   const { t } = useTranslation();
 
   return (
@@ -35,6 +42,7 @@ export default function Input({
           }}
           {...(field as any)}
           placeholder={placeholder && t(placeholder)}
+          secureTextEntry={!isPlain}
           {...props}
         />
       )}
