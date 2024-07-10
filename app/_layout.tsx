@@ -30,7 +30,7 @@ export default function RootLayout() {
         name='(auth)/login/index'
         options={{ headerShown: false }}
       />
-      <Stack.Screen name='+not-found' />
+      {/*<Stack.Screen name='+not-found' />*/}
     </Stack>
   );
 }

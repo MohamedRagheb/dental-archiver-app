@@ -1,7 +1,8 @@
 {
   "hallo": "hi all",
   "label": {
-    "username": "user Name",
-    "password": "Password"
+    "username": "Username",
+    "password": "Password",
+    "submit": "Submit"
   }
 }
