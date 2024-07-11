@@ -1,16 +1,13 @@
-import { Control, FieldError, FieldValues, Path } from 'react-hook-form';
+// Types
+import { FieldValues } from 'react-hook-form';
 import { TextInputProps } from 'react-native';
+import { IInputProps } from '@/components/core/types';
+import { IIcon } from '@/components/core/Input/Icon';
 
-import { ReactNode } from 'react';
-
-interface IControl<T extends FieldValues> extends Control<T> {}
-
-export interface ITextInputProps<T extends FieldValues> extends TextInputProps {
-  error: FieldError | undefined;
-  iconName?: string;
+export interface ITextInputProps<T extends FieldValues>
+  extends IInputProps<T>,
+    TextInputProps {
+  icon?: IIcon;
   onIconClick?: () => void;
-  control: IControl<T>;
   placeholder?: string;
-  label?: string;
-  name: Path<T>;
 }

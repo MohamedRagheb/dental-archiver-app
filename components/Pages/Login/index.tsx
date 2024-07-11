@@ -54,7 +54,11 @@ export default function LoginForm() {
         error={errors['password']}
         placeholder={'label.password'}
       />
-      <Button onPress={handleSubmit(onSubmit)} title={'label.submit'} />
+      <Button
+        style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
+        onPress={handleSubmit(onSubmit)}
+        title={'label.submit'}
+      />
     </View>
   );
 }

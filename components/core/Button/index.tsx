@@ -17,10 +17,8 @@ export default function CustomButton({ onPress, title, ...restProps }: IProps) {
         style={{
           ...{
             alignSelf: 'center',
-            backgroundColor: '#312EA2',
             paddingHorizontal: 40,
             paddingVertical: 8,
-            borderRadius: 100,
           },
           ...(restProps.style as object),
         }}

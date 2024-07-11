@@ -21,5 +21,15 @@ export default function PasswordInput<T extends FieldValues>({
   const iconLevel = ['Entypo'];
   const [isPlain, setIsPlain] = useState(false);
 
-  return <Input<T> secureTextEntry={!isPlain} {...props} />;
+  return (
+    <Input<T>
+      icon={{
+        name: isPlain ? 'eye' : 'eye-with-line',
+        lib: 'Entypo',
+        onPress: () => setIsPlain(!isPlain),
+      }}
+      secureTextEntry={!isPlain}
+      {...props}
+    />
+  );
 }

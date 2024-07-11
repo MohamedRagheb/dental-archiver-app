@@ -3,7 +3,7 @@ import { Controller } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 
 // Components
-import { Text, TextInput, View } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import ErrorMessage from '@/components/core/ErrorMessage';
 
 // Hooks
@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 // Types
 import { ITextInputProps } from '@/components/core/Input/types';
+import IconButton from '@/components/core/Input/Icon';
 
 export default function Input<T extends FieldValues>({
   placeholder,
@@ -18,7 +19,7 @@ export default function Input<T extends FieldValues>({
   name,
   label,
   error,
-  iconName,
+  icon,
   ...props
 }: ITextInputProps<T>) {
   const { t } = useTranslation();
@@ -58,11 +59,24 @@ export default function Input<T extends FieldValues>({
               placeholder={placeholder && t(placeholder)}
               {...props}
             />
-            {/*{appendIcon && (*/}
-            {/*  <View style={{ position: 'absolute', right: 0, top: 44 }}>*/}
-            {/*    {appendIcon}*/}
-            {/*  </View>*/}
-            {/*)}*/}
+            {icon && (
+              <View
+                style={{
+                  position: 'absolute',
+                  right: 0,
+                  top: 36,
+                  cursor: 'pointer',
+                }}
+              >
+                <TouchableOpacity activeOpacity={0.1}>
+                  <IconButton
+                    backgroundColor={'transparent'}
+                    color={'black'}
+                    {...icon}
+                  />
+                </TouchableOpacity>
+              </View>
+            )}
           </View>
           <ErrorMessage error={error} />
         </View>
