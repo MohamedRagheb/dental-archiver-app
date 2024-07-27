@@ -1,9 +1,9 @@
 // React Form Hook
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import type { FieldValues } from 'react-hook-form';
 
 // Components
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Text, TextInput, TouchableWithoutFeedback, View } from 'react-native';
 import ErrorMessage from '@/components/core/ErrorMessage';
 
 // Hooks
@@ -12,17 +12,22 @@ import { useTranslation } from 'react-i18next';
 // Types
 import { ITextInputProps } from '@/components/core/Input/types';
 import IconButton from '@/components/core/Input/Icon';
+import { useEffect } from 'react';
 
 export default function Input<T extends FieldValues>({
   placeholder,
-  control,
   name,
   label,
-  error,
   icon,
   ...props
 }: ITextInputProps<T>) {
+  const { style, ...restProps } = props;
   const { t } = useTranslation();
+  const {
+    control,
+    formState: { errors },
+    trigger,
+  } = useFormContext<T>();
 
   return (
     <Controller
@@ -36,7 +41,7 @@ export default function Input<T extends FieldValues>({
                 style={{
                   paddingHorizontal: 8,
                   fontSize: 14,
-                  color: !!error ? 'red' : 'black',
+                  color: !!errors[name] ? 'red' : 'black',
                 }}
               >
                 {t(label)}
@@ -49,18 +54,23 @@ export default function Input<T extends FieldValues>({
                 color: '#79747E',
                 justifyContent: 'center',
                 textAlignVertical: 'center',
-                borderColor: !!error ? 'red' : '#79747E',
+                borderColor: !!errors[name] ? 'red' : '#79747E',
                 borderWidth: 1,
                 padding: 12,
                 borderRadius: 6,
+                ...(style as object),
               }}
               {...(field as any)}
-              onChangeText={field.onChange}
+              onChangeText={(e) => {
+                field.onChange(e);
+                trigger(name);
+              }}
               placeholder={placeholder && t(placeholder)}
-              {...props}
+              {...restProps}
             />
             {icon && (
               <View
+                key={1}
                 style={{
                   position: 'absolute',
                   right: 0,
@@ -68,17 +78,21 @@ export default function Input<T extends FieldValues>({
                   cursor: 'pointer',
                 }}
               >
-                <TouchableOpacity activeOpacity={0.1}>
+                <TouchableWithoutFeedback
+                  onPress={icon.onPress}
+                  style={{ backgroundColor: 'transparent' }}
+                >
                   <IconButton
                     backgroundColor={'transparent'}
                     color={'black'}
+                    suppressHighlighting={true}
                     {...icon}
                   />
-                </TouchableOpacity>
+                </TouchableWithoutFeedback>
               </View>
             )}
           </View>
-          <ErrorMessage error={error} />
+          <ErrorMessage<T> error={errors} />
         </View>
       )}
     />

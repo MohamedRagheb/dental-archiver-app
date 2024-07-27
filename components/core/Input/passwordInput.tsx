@@ -12,17 +12,13 @@ import { FieldValues } from 'react-hook-form';
 // Hooks
 import { useState } from 'react';
 
-// Icons
-import Icon from 'react-native-vector-icons';
-
 export default function PasswordInput<T extends FieldValues>({
   ...props
 }: ITextInputProps<T>) {
-  const iconLevel = ['Entypo'];
   const [isPlain, setIsPlain] = useState(false);
 
   return (
-    <Input<T>
+    <Input
       icon={{
         name: isPlain ? 'eye' : 'eye-with-line',
         lib: 'Entypo',

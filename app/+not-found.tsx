@@ -5,8 +5,6 @@ import Text = Animated.Text;
 export default function NotFoundScreen() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <Link href={'(auth)/login'}>hallo</Link>
       <Text>404</Text>
     </>
   );

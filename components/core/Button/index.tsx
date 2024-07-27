@@ -24,9 +24,9 @@ export default function CustomButton({ onPress, title, ...restProps }: IProps) {
         }}
       >
         <Button
+          onPress={onPress}
           color={restProps.color ?? 'white'}
           accessibilityLabel={accessibilityLabel}
-          onPress={onPress}
           title={t(title)}
           {...restProps}
         />

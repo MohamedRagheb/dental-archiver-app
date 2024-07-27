@@ -2,34 +2,46 @@
 import { View } from 'react-native';
 import Input from '@/components/core/Input';
 import Button from '@/components/core/Button';
+import PasswordInput from '@/components/core/Input/passwordInput';
 
 // Hooks
 import { useTranslation } from 'react-i18next';
-import { useForm } from 'react-hook-form';
+import useFormHandler from '@/hooks/useFormHandler';
 
 // Types
 import { ILoginForm } from '@/components/Pages/Login/types';
 
-// Yup
-import { yupResolver } from '@hookform/resolvers/yup';
-import { object, ObjectSchema, string } from 'yup';
-import PasswordInput from '@/components/core/Input/passwordInput';
+// Store
+import { useAuthStore } from '@/stores/AuthStore';
+
+// Router
+import { Link, useRouter } from 'expo-router';
+import Form from '@/components/core/Form';
+import FormButton from '@/components/core/Button/FormButton';
 
 export default function LoginForm() {
-  const schema: ObjectSchema<ILoginForm> = object({
-    username: string().min(5).required(),
-    password: string().min(5).required(),
-  });
+  const { login, token } = useAuthStore();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<ILoginForm>({ resolver: yupResolver(schema) });
+  const router = useRouter();
 
-  const onSubmit = (data: ILoginForm) => {
-    console.log(data);
+  const { t } = useTranslation();
+  const onSubmit = async (data: ILoginForm) => {
+    // try {
+    //   await login(data.username, data.password);
+    //   router.push('/');
+    // } catch (e) {}
   };
+
+  const defaultValues = {
+    username: 'modyahmed221@icloud.com',
+    password: 'mohamed12345',
+  };
+
+  const { control, handleSubmit } = useFormHandler<ILoginForm>({
+    defaultValues,
+    schemaName: 'loginSchema',
+    onSubmit,
+  });
 
   return (
     <View
@@ -40,25 +52,47 @@ export default function LoginForm() {
         gap: 24,
       }}
     >
-      <Input<ILoginForm>
-        label={'label.username'}
-        name={'username'}
-        control={control}
-        error={errors['username']}
-        placeholder={'label.username'}
-      />
-      <PasswordInput<ILoginForm>
-        label={'label.password'}
-        name={'password'}
-        control={control}
-        error={errors['password']}
-        placeholder={'label.password'}
-      />
-      <Button
-        style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
-        onPress={handleSubmit(onSubmit)}
-        title={'label.submit'}
-      />
+      <Form<ILoginForm>
+        defaultValues={defaultValues}
+        onSubmit={onSubmit}
+        schemaName={'loginSchema'}
+      >
+        <Input
+          label={'label.username'}
+          name={'username'}
+          control={control}
+          placeholder={'label.username'}
+        />
+        <FormButton
+          style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
+          title={'label.submit'}
+        />
+      </Form>
+      {/*<PasswordInput<ILoginForm>*/}
+      {/*  label={'label.password'}*/}
+      {/*  name={'password'}*/}
+      {/*  control={control}*/}
+      {/*  placeholder={'label.password'}*/}
+      {/*/>*/}
+      {/*<View style={{ gap: 16 }}>*/}
+      {/*  <Link*/}
+      {/*    style={{ alignSelf: 'center', color: '#312EA2' }}*/}
+      {/*    href={'(auth)/signup'}*/}
+      {/*  >*/}
+      {/*    {t('label.signup')}*/}
+      {/*  </Link>*/}
+      {/*  <Link*/}
+      {/*    style={{ alignSelf: 'center', color: '#312EA2' }}*/}
+      {/*    href={'(auth)/forget-password'}*/}
+      {/*  >*/}
+      {/*    {t('label.forget_password')}*/}
+      {/*  </Link>*/}
+      {/*  <Button*/}
+      {/*    style={{ backgroundColor: '#312EA2', borderRadius: 100 }}*/}
+      {/*    onPress={submit}*/}
+      {/*    title={'label.submit'}*/}
+      {/*  />*/}
+      {/*</View>*/}
     </View>
   );
 }

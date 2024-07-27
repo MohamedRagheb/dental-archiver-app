@@ -8,6 +8,5 @@ export interface ITextInputProps<T extends FieldValues>
   extends IInputProps<T>,
     TextInputProps {
   icon?: IIcon;
-  onIconClick?: () => void;
   placeholder?: string;
 }

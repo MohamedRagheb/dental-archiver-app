@@ -1,5 +1,6 @@
 import icons, { IIconsLibraries } from './icons';
 import { ButtonProps } from 'react-native';
+import { useState } from 'react';
 
 export interface IIcon {
   name: string;
@@ -12,6 +13,7 @@ export interface IIconButton
     Omit<ButtonProps, 'title' | 'backgroundColor' | 'onPress'> {
   title?: string;
   backgroundColor?: string;
+  suppressHighlighting?: boolean;
 }
 
 export default function IconButton({ name, lib, ...props }: IIconButton) {

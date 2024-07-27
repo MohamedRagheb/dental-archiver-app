@@ -1,15 +1,27 @@
+// Hooks
+import { Stack, usePathname, useRouter } from 'expo-router';
 import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
-import 'react-native-reanimated';
-import 'intl-pluralrules';
 
+// Locale
 import '@/lang';
-// Prevent the splash screen from auto-hiding before asset loading is complete.
+
+// Components
+import ToastComponent from '@/components/core/Toast';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Environment
+import enviroment from '@/Utils/enviroment';
+
 SplashScreen.preventAutoHideAsync();
 
+// Utils
+import 'react-native-reanimated';
+import { getItem } from 'expo-secure-store';
+
 export default function RootLayout() {
+  const pathname = usePathname();
+  const router = useRouter();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -17,6 +29,12 @@ export default function RootLayout() {
   useEffect(() => {
     if (loaded) {
       SplashScreen.hideAsync();
+      if (
+        !enviroment.Auth_Routes.includes(pathname) &&
+        !getItem(enviroment.Token_Key)
+      ) {
+        router.replace('/login');
+      }
     }
   }, [loaded]);
 
@@ -25,12 +43,9 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen
-        name='(auth)/login/index'
-        options={{ headerShown: false }}
-      />
-      {/*<Stack.Screen name='+not-found' />*/}
-    </Stack>
+    <>
+      <Stack />
+      <ToastComponent />
+    </>
   );
 }

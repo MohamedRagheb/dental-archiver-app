@@ -3,6 +3,14 @@
   "label": {
     "username": "Username",
     "password": "Password",
-    "submit": "Submit"
+    "submit": "Submit",
+    "signup": "Sign Up",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "email": "E-mail",
+    "password_confirm": "Password Confirmations",
+    "login": "Login",
+    "forget_password": "Forget Password",
+    "enter_ur_email": "Enter Your Account E-mail"
   }
 }
