@@ -1,11 +1,11 @@
 import icons, { IIconsLibraries } from './icons';
-import { ButtonProps } from 'react-native';
-import { useState } from 'react';
+import { ButtonProps, StyleProp } from 'react-native';
 
 export interface IIcon {
   name: string;
   lib: keyof IIconsLibraries;
   onPress?: () => void;
+  style?: StyleProp<any>;
 }
 
 export interface IIconButton
@@ -29,5 +29,11 @@ export default function IconButton({ name, lib, ...props }: IIconButton) {
 
 export function Icon({ name, lib, ...props }: IIcon) {
   const IconComponent = icons[lib];
-  return <IconComponent name={name} {...props}></IconComponent>;
+  return (
+    <IconComponent
+      {...props}
+      name={name}
+      style={{ fontSize: 20, alignSelf: 'center', ...props.style }}
+    ></IconComponent>
+  );
 }

@@ -38,7 +38,6 @@ axiosInstance.interceptors.response.use(
   },
   async (error: any) => {
     const errorData = error.response.data as IServerResponse<any>;
-    console.log(errorData);
     if (errorData.statusCode === 403) {
       // useAuth.getState().logout();
     }

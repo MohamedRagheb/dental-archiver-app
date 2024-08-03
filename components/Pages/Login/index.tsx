@@ -26,10 +26,10 @@ export default function LoginForm() {
 
   const { t } = useTranslation();
   const onSubmit = async (data: ILoginForm) => {
-    // try {
-    //   await login(data.username, data.password);
-    //   router.push('/');
-    // } catch (e) {}
+    try {
+      await login(data.username, data.password);
+      router.push('/');
+    } catch (e) {}
   };
 
   const defaultValues = {
@@ -60,39 +60,32 @@ export default function LoginForm() {
         <Input
           label={'label.username'}
           name={'username'}
-          control={control}
           placeholder={'label.username'}
         />
-        <FormButton
-          style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
-          title={'label.submit'}
+        <PasswordInput
+          label={'label.password'}
+          name={'password'}
+          placeholder={'label.password'}
         />
+        <View style={{ gap: 16 }}>
+          <Link
+            style={{ alignSelf: 'center', color: '#312EA2' }}
+            href={'(auth)/signup'}
+          >
+            {t('label.signup')}
+          </Link>
+          <Link
+            style={{ alignSelf: 'center', color: '#312EA2' }}
+            href={'(auth)/forget-password'}
+          >
+            {t('label.forget_password')}
+          </Link>
+          <FormButton
+            style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
+            title={'label.submit'}
+          />
+        </View>
       </Form>
-      {/*<PasswordInput<ILoginForm>*/}
-      {/*  label={'label.password'}*/}
-      {/*  name={'password'}*/}
-      {/*  control={control}*/}
-      {/*  placeholder={'label.password'}*/}
-      {/*/>*/}
-      {/*<View style={{ gap: 16 }}>*/}
-      {/*  <Link*/}
-      {/*    style={{ alignSelf: 'center', color: '#312EA2' }}*/}
-      {/*    href={'(auth)/signup'}*/}
-      {/*  >*/}
-      {/*    {t('label.signup')}*/}
-      {/*  </Link>*/}
-      {/*  <Link*/}
-      {/*    style={{ alignSelf: 'center', color: '#312EA2' }}*/}
-      {/*    href={'(auth)/forget-password'}*/}
-      {/*  >*/}
-      {/*    {t('label.forget_password')}*/}
-      {/*  </Link>*/}
-      {/*  <Button*/}
-      {/*    style={{ backgroundColor: '#312EA2', borderRadius: 100 }}*/}
-      {/*    onPress={submit}*/}
-      {/*    title={'label.submit'}*/}
-      {/*  />*/}
-      {/*</View>*/}
     </View>
   );
 }

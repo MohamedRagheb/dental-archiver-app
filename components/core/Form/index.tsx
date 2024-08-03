@@ -1,8 +1,9 @@
 import {
   forwardRef,
   PropsWithChildren,
+  ReactChild,
+  ReactChildren,
   Ref,
-  useEffect,
   useImperativeHandle,
 } from 'react';
 import React from 'react';
@@ -19,13 +20,12 @@ function Form<T extends AnyObject>(
   const methods = useFormHandler<T>(props);
 
   useImperativeHandle(ref, () => methods);
+
   return (
     <FormProvider {...methods}>
-      {/*//:TODO*/}
-      {/*{React.Children.map(children, (child: ReactChild) =>*/}
-      {/*  React.isValidElement(child) ? React.cloneElement<any>(child) : child*/}
-      {/*)}*/}
-      {children}
+      {React.Children.map(children as ReactChild[], (child: ReactChild) =>
+        React.isValidElement(child) ? React.cloneElement<any>(child) : child
+      )}
     </FormProvider>
   );
 }

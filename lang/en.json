@@ -11,6 +11,12 @@
     "password_confirm": "Password Confirmations",
     "login": "Login",
     "forget_password": "Forget Password",
-    "enter_ur_email": "Enter Your Account E-mail"
+    "enter_ur_email": "Enter Your Account E-mail",
+    "send_code": "Send Code",
+    "reset_password": "Reset Password",
+    "new_password": "New Password",
+    "enter_new_password": "Enter New Password",
+    "enter_password_confirm": "Enter Password Confirm",
+    "back_to_login": "Back To Login"
   }
 }

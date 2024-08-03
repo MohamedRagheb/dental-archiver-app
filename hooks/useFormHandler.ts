@@ -7,6 +7,8 @@ import {
 import { AnyObject, ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import getSchema, { ISchemasName } from '@/Schemas';
+import { useEffect, useState } from 'react';
+import enviroment from '@/Utils/enviroment';
 
 interface IPropsBase<T extends AnyObject> {
   defaultValues: DefaultValues<T>;
@@ -30,6 +32,7 @@ export type TFormHandlerProps<T extends AnyObject> =
 export interface IFormHandlerReturn<T extends FieldValues>
   extends UseFormReturn<T> {
   submit: () => void;
+  loading: boolean;
 }
 export default function useFormHandler<T extends FieldValues>({
   defaultValues,
@@ -37,13 +40,30 @@ export default function useFormHandler<T extends FieldValues>({
   schemaName,
   schema,
 }: TFormHandlerProps<T>): IFormHandlerReturn<T> {
+  const [loading, setLoading] = useState(false);
+
   const _schema = schema ? schema : getSchema(schemaName);
   const resolver = yupResolver(_schema);
 
   const formDetails = useForm<T>({ defaultValues, resolver });
+
+  const submit = async () => {
+    try {
+      setLoading(true);
+      return await formDetails.handleSubmit(onSubmit, (errors) => {
+        if (enviroment.App_Mode === 'development') console.log(errors);
+      })();
+    } catch (e) {
+      return console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     ...formDetails,
-    // ...formDetails.formState,
-    submit: formDetails.handleSubmit(onSubmit),
+    ...formDetails.formState,
+    loading,
+    submit,
   };
 }

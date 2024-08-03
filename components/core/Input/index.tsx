@@ -48,6 +48,7 @@ export default function Input<T extends FieldValues>({
               </Text>
             )}
             <TextInput
+              autoCapitalize='none'
               style={{
                 height: 56,
                 fontSize: 16,
@@ -58,6 +59,8 @@ export default function Input<T extends FieldValues>({
                 borderWidth: 1,
                 padding: 12,
                 borderRadius: 6,
+                backgroundColor:
+                  props.editable === false ? '#dee2e6' : 'transparent',
                 ...(style as object),
               }}
               {...(field as any)}
@@ -92,7 +95,7 @@ export default function Input<T extends FieldValues>({
               </View>
             )}
           </View>
-          <ErrorMessage<T> error={errors} />
+          <ErrorMessage<T> error={errors[name]} />
         </View>
       )}
     />

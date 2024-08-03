@@ -5,7 +5,6 @@ import PasswordInput from '@/components/core/Input/passwordInput';
 import Input from '@/components/core/Input';
 
 // Hooks
-import useFormHandler from '@/hooks/useFormHandler';
 import { useTranslation } from 'react-i18next';
 import { Link, useRouter } from 'expo-router';
 
@@ -14,6 +13,8 @@ import { ISignupForm } from '@/components/Pages/Signup/types';
 
 // Api
 import { $http } from '@/api';
+import Form from '@/components/core/Form';
+import FormButton from '@/components/core/Button/FormButton';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -34,11 +35,6 @@ export default function SignupForm() {
     } catch (e) {}
   };
 
-  const { control, submit } = useFormHandler<ISignupForm>({
-    defaultValues,
-    schemaName: 'SignupSchema',
-    onSubmit,
-  });
   return (
     <View
       style={{
@@ -48,49 +44,49 @@ export default function SignupForm() {
         gap: 20,
       }}
     >
-      <Input<ISignupForm>
-        control={control}
-        name={'first_name'}
-        label={'label.first_name'}
-        placeholder={'label.first_name'}
-      />
-      <Input<ISignupForm>
-        control={control}
-        name={'last_name'}
-        label={'label.last_name'}
-        placeholder={'label.last_name'}
-      />
-      <Input<ISignupForm>
-        control={control}
-        name={'email'}
-        label={'label.email'}
-        placeholder={'label.email'}
-      />
-      <PasswordInput<ISignupForm>
-        control={control}
-        name={'password'}
-        label={'label.password'}
-        placeholder={'label.password'}
-      />
-      <PasswordInput<ISignupForm>
-        control={control}
-        name={'password_confirm'}
-        label={'label.password_confirm'}
-        placeholder={'label.password_confirm'}
-      />
-      <View style={{ gap: 16 }}>
-        <Link
-          style={{ alignSelf: 'center', color: '#312EA2' }}
-          href={'(auth)/login'}
-        >
-          {t('label.login')}
-        </Link>
-        <Button
-          style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
-          onPress={submit}
-          title={'label.submit'}
+      <Form<ISignupForm>
+        defaultValues={defaultValues}
+        schemaName='SignupSchema'
+        onSubmit={onSubmit}
+      >
+        <Input
+          name={'first_name'}
+          label={'label.first_name'}
+          placeholder={'label.first_name'}
         />
-      </View>
+        <Input
+          name={'last_name'}
+          label={'label.last_name'}
+          placeholder={'label.last_name'}
+        />
+        <Input
+          name={'email'}
+          label={'label.email'}
+          placeholder={'label.email'}
+        />
+        <PasswordInput
+          name={'password'}
+          label={'label.password'}
+          placeholder={'label.password'}
+        />
+        <PasswordInput
+          name={'password_confirm'}
+          label={'label.password_confirm'}
+          placeholder={'label.password_confirm'}
+        />
+        <View style={{ gap: 16 }}>
+          <Link
+            style={{ alignSelf: 'center', color: '#312EA2' }}
+            href={'(auth)/login'}
+          >
+            {t('label.login')}
+          </Link>
+          <FormButton
+            style={{ backgroundColor: '#312EA2', borderRadius: 100 }}
+            title={'label.submit'}
+          />
+        </View>
+      </Form>
     </View>
   );
 }
