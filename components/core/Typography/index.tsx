@@ -7,7 +7,7 @@ import { Text } from 'react-native';
 
 export default function Typography({
   children,
-  variant,
+  variant = 'subtitle',
   ...props
 }: PropsWithChildren<ITypographyProps>) {
   const { style, ...restProps } = props;

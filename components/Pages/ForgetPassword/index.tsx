@@ -1,5 +1,5 @@
 // Components
-import { ActivityIndicator, View } from 'react-native';
+import { View } from 'react-native';
 import Input from '@/components/core/Input';
 import Form from '@/components/core/Form';
 import { useEffect, useRef, useState } from 'react';
@@ -7,7 +7,6 @@ import FormButton from '@/components/core/Button/FormButton';
 import { $http } from '@/api';
 import { IServerResponse } from '@/types';
 import OtpInput from '@/components/core/OtpInput';
-import { Icon } from '@/components/core/Input/Icon';
 import PasswordInput from '@/components/core/Input/passwordInput';
 import { Link, useRouter } from 'expo-router';
 import { IFormRefProps } from '@/components/core/Form/types';
@@ -53,7 +52,6 @@ export default function ForgetPasswordForm() {
 
   const handleLastStepSubmit = async (data: IForgetPasswordForm) => {
     const { email, step, ...body } = data;
-    console.log(body);
     const { statusCode } = await $http.post<IServerResponse<never>>({
       url: 'auth/reset-password',
       data: body,

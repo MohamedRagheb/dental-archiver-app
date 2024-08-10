@@ -11,8 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 // Types
 import { ITextInputProps } from '@/components/core/Input/types';
-import IconButton from '@/components/core/Input/Icon';
-import { useEffect } from 'react';
+import IconButton from '@/components/core/Icon';
 
 export default function Input<T extends FieldValues>({
   placeholder,

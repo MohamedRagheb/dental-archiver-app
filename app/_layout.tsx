@@ -18,6 +18,7 @@ SplashScreen.preventAutoHideAsync();
 // Utils
 import 'react-native-reanimated';
 import { getItem } from 'expo-secure-store';
+import { useAuthStore } from '@/stores/AuthStore';
 
 export default function RootLayout() {
   const pathname = usePathname();
@@ -25,6 +26,8 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  const { getUserData } = useAuthStore();
 
   useEffect(() => {
     if (loaded) {
@@ -37,6 +40,10 @@ export default function RootLayout() {
       }
     }
   }, [loaded]);
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   if (!loaded) {
     return null;

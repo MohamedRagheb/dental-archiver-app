@@ -2,13 +2,13 @@
 import { create } from 'zustand';
 
 // Types
-import { IUser } from '@/types';
+import { IServerResponse, IUser } from '@/types';
 
 // Http Handlers
 import { $http } from '@/api';
 
 // Secure Store
-import { setItemAsync } from 'expo-secure-store';
+import { deleteItemAsync, setItemAsync, getItem } from 'expo-secure-store';
 import enviroment from '@/Utils/enviroment';
 
 type State = {
@@ -18,9 +18,11 @@ type State = {
 
 type Action = {
   login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  getUserData: () => Promise<void>;
 };
 
-export const useAuthStore = create<State & Action>((set) => ({
+export const useAuthStore = create<State & Action>((set, get) => ({
   token: null,
   userData: null,
   async login(email, password) {
@@ -31,5 +33,17 @@ export const useAuthStore = create<State & Action>((set) => ({
     const { token, ...restUserData } = data;
     await setItemAsync(enviroment.Token_Key, token);
     set({ token: data.token, userData: restUserData });
+  },
+  async logout() {
+    await deleteItemAsync(enviroment.Token_Key);
+    set({ token: null, userData: null });
+  },
+  async getUserData() {
+    if (getItem(enviroment.Token_Key)) {
+      const { data } = await $http.get<IServerResponse<IUser>>({
+        url: 'auth/profile',
+      });
+      set((state) => ({ ...state, userData: data }));
+    } else get().logout();
   },
 }));

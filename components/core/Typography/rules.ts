@@ -34,5 +34,5 @@ export const Rules = {
 export type TVariant = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'subtitle';
 
 export interface ITypographyProps extends TextProps {
-  variant: TVariant;
+  variant?: TVariant;
 }
