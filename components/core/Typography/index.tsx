@@ -14,7 +14,7 @@ export default function Typography({
 
   const rule = Rules[variant];
   return (
-    <Text style={{ ...(style as any), ...rule }} {...restProps}>
+    <Text style={{ ...rule, ...(style as any) }} {...restProps}>
       {children}
     </Text>
   );

@@ -1,10 +1,14 @@
 import { type PropsWithChildren, useEffect } from 'react';
-import { Stack, useNavigation } from 'expo-router';
+import { router, Slot, Stack, Tabs, useNavigation } from 'expo-router';
 
 // Components
 import AppNavigation from '@/components/Layout/MainLayout/AppNavigation';
+import { useAuthStore } from '@/stores/AuthStore';
+import { getItem } from 'expo-secure-store';
+import enviroment from '@/Utils/enviroment';
 
-export default function AppLayout({ children }: PropsWithChildren<any>) {
+export default function AppLayout() {
+  const { getUserData, setUserData } = useAuthStore();
   // Handel Page Settings
   const navigation = useNavigation();
 
@@ -14,9 +18,19 @@ export default function AppLayout({ children }: PropsWithChildren<any>) {
     });
   }, []);
 
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+  useEffect(() => {
+    if (!getItem(enviroment.Token_Key)) {
+      setUserData({ userData: null, token: null });
+    }
+  }, []);
+
   return (
     <>
-      <Stack />
+      <Slot />
       <AppNavigation />
     </>
   );

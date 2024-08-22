@@ -39,7 +39,7 @@ export default function UserInformation({ userData }: { userData: IUser }) {
         <Typography variant='h4'>
           {userData?.first_name + ' ' + userData?.last_name}
         </Typography>
-        <Typography>
+        <Typography style={{ color: '#6c757d' }}>
           {t('edit_profile.joined_in', {
             date: dateToString(userData?.created_at),
           })}

@@ -1,8 +1,4 @@
-import Toast, {
-  BaseToast,
-  ErrorToast,
-  SuccessToast,
-} from 'react-native-toast-message';
+import Toast, { ErrorToast, SuccessToast } from 'react-native-toast-message';
 import { observer } from '@/Utils/observer';
 import { Text, View } from 'react-native';
 import type { ToastConfigParams } from 'react-native-toast-message';

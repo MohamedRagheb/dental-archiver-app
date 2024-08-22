@@ -21,11 +21,18 @@ export default function AppNavigation() {
         alignItems: 'center',
         borderTopColor: 'gray',
         borderTopWidth: 1,
+        zIndex: 1,
+        elevation: 1,
+        position: 'absolute',
+        bottom: 0,
+        width: '100%',
       }}
     >
       <Each<INavigationItem>
         of={navigationLinks}
-        render={(item, index) => <NavigationItem index={index} item={item} />}
+        render={(item, index) => (
+          <NavigationItem key={index} index={index} item={item} />
+        )}
       />
     </View>
   );

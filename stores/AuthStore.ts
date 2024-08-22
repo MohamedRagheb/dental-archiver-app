@@ -10,6 +10,7 @@ import { $http } from '@/api';
 // Secure Store
 import { deleteItemAsync, setItemAsync, getItem } from 'expo-secure-store';
 import enviroment from '@/Utils/enviroment';
+import { router } from 'expo-router';
 
 type State = {
   token: string | null;
@@ -18,8 +19,9 @@ type State = {
 
 type Action = {
   login: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
   getUserData: () => Promise<void>;
+  setUserData: (data: State) => void;
 };
 
 export const useAuthStore = create<State & Action>((set, get) => ({
@@ -37,13 +39,17 @@ export const useAuthStore = create<State & Action>((set, get) => ({
   async logout() {
     await deleteItemAsync(enviroment.Token_Key);
     set({ token: null, userData: null });
+    router.replace('/(auth)/login');
   },
   async getUserData() {
-    if (getItem(enviroment.Token_Key)) {
+    try {
       const { data } = await $http.get<IServerResponse<IUser>>({
         url: 'auth/profile',
       });
       set((state) => ({ ...state, userData: data }));
-    } else get().logout();
+    } catch (error) {}
+  },
+  setUserData(newData) {
+    set(newData);
   },
 }));

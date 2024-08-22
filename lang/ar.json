@@ -1,3 +1,26 @@
 {
-  "hallo": "اهلا بكم"
+  "hallo": "أهلاً بكم",
+  "label": {
+    "username": "اسم المستخدم",
+    "password": "كلمة المرور",
+    "submit": "يُقدِّم",
+    "signup": "اشتراك",
+    "first_name": "الاسم الأول",
+    "last_name": "اسم العائلة",
+    "email": "بريد إلكتروني",
+    "password_confirm": "تأكيدات كلمة المرور",
+    "login": "تسجيل الدخول",
+    "forget_password": "نسيت كلمة المرور",
+    "enter_ur_email": "أدخل البريد الإلكتروني الخاص بحسابك",
+    "send_code": "إرسال الرمز",
+    "reset_password": "إعادة تعيين كلمة المرور",
+    "new_password": "كلمة المرور الجديدة",
+    "enter_new_password": "أدخل كلمة المرور الجديدة",
+    "enter_password_confirm": "أدخل تأكيد كلمة المرور",
+    "back_to_login": "العودة إلى تسجيل الدخول"
+  },
+  "edit_profile": {
+    "joined_in": "لقد انضممت {{date}}",
+    "profile": "حساب تعريفي"
+  }
 }

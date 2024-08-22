@@ -6,21 +6,23 @@ import axios, {
 import { getI18n } from 'react-i18next';
 import { observer } from '@/Utils/observer';
 
+import environment from '@/Utils/enviroment';
+
+import { IServerResponse } from '@/types';
+import { deleteItemAsync, getItem } from 'expo-secure-store';
+import { router } from 'expo-router';
+import { useAuthStore } from '@/stores/AuthStore';
 import enviroment from '@/Utils/enviroment';
 
-import i18n from '@/lang/index';
-import { IServerResponse } from '@/types';
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: enviroment.Api_Base_Url ?? '',
+  baseURL: environment.Api_Base_Url ?? '',
 });
 
 axiosInstance.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  // const token = useAuth.getState().token;
-  const token = '';
+  const token = getItem(environment.Token_Key);
   const url = (config.url as string).replace(/[\d/]/g, '');
-
   config.headers['Default-Language'] = getI18n().language;
-  // config.headers.Authorization = `Bearer ${token}`;
+  config.headers.Authorization = `Bearer ${token}`;
   return config;
 });
 axiosInstance.interceptors.response.use(
@@ -38,14 +40,16 @@ axiosInstance.interceptors.response.use(
   },
   async (error: any) => {
     const errorData = error.response.data as IServerResponse<any>;
-    if (errorData.statusCode === 403) {
-      // useAuth.getState().logout();
+    if (errorData.statusCode === 401 || errorData.statusCode === 403) {
+      await deleteItemAsync(enviroment.Token_Key);
+      router.replace('/(auth)/login');
+    } else {
+      observer.fire('notify', {
+        type: 'error',
+        text1: errorData.message,
+        text2: errorData.status,
+      });
     }
-    observer.fire('notify', {
-      type: 'error',
-      text1: errorData.message,
-      text2: errorData.status,
-    });
 
     return Promise.reject(error);
   }

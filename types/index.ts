@@ -7,3 +7,5 @@ export interface IServerResponse<T> {
   statusCode: number;
   data?: T;
 }
+
+export type TLocales = 'en' | 'ar';

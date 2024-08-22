@@ -17,9 +17,16 @@
     "new_password": "New Password",
     "enter_new_password": "Enter New Password",
     "enter_password_confirm": "Enter Password Confirm",
-    "back_to_login": "Back To Login"
+    "back_to_login": "Back To Login",
+    "language": "Language"
   },
   "edit_profile": {
-    "joined_in": "You Joined In {{date}}"
+    "joined_in": "You Joined In {{date}}",
+    "profile": "Profile",
+    "settings": "Settings"
+  },
+  "languages": {
+    "en": "English",
+    "ar": "Arabic"
   }
 }
