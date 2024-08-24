@@ -1,20 +1,26 @@
 // Hooks
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 // Components
 import { Image, View } from 'react-native';
 import Typography from '@/components/core/Typography';
 import SettingItem from '@/components/Pages/Profile/Settings/SettingItem';
-import { languagesData } from '@/components/Pages/Profile/Settings/constant';
+import LanguageDialog from '@/components/Pages/Profile/Settings/LanguageDialog';
 
 // Types
 import type { TLocales } from '@/types';
-import Modal from '@/components/core/Modal';
+import { IModalRef } from '@/components/core/Modal/types';
+
+// Constants
+import { languagesData } from '@/components/Pages/Profile/Settings/constant';
 
 export default function Settings() {
   const { t, i18n } = useTranslation();
 
   const currentLocale = i18n.language as TLocales;
+
+  const modalRef = useRef<IModalRef>();
 
   return (
     <>
@@ -29,6 +35,7 @@ export default function Settings() {
       >
         <Typography variant='h3'>{t('edit_profile.settings')}</Typography>
         <SettingItem
+          onPress={() => modalRef?.current?.openModal()}
           text={'label.language'}
           hiddenArrow
           selectedValue={
@@ -54,7 +61,7 @@ export default function Settings() {
           }
         />
       </View>
-      {/*<Modal /> */}
+      <LanguageDialog ref={modalRef} />
     </>
   );
 }

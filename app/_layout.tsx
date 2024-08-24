@@ -1,5 +1,5 @@
 // Hooks
-import { router, Stack, usePathname } from 'expo-router';
+import { router, Slot, Stack, usePathname } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 
@@ -14,8 +14,13 @@ SplashScreen.preventAutoHideAsync();
 
 // Utils
 import 'react-native-reanimated';
+import { I18nextProvider, useTranslation } from 'react-i18next';
+import I18n from '@/lang';
+import { I18nManager } from 'react-native';
 
 export default function RootLayout() {
+  const { i18n } = useTranslation();
+
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -31,9 +36,15 @@ export default function RootLayout() {
   }
 
   return (
-    <>
-      <Stack />
+    <I18nextProvider i18n={I18n}>
+      <Stack
+        screenOptions={{
+          contentStyle: {
+            direction: i18n.language ? 'rtl' : 'ltr',
+          },
+        }}
+      />
       <ToastComponent />
-    </>
+    </I18nextProvider>
   );
 }

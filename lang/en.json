@@ -1,5 +1,8 @@
 {
   "hallo": "hi all",
+  "modal": {
+    "system_language": "App Language"
+  },
   "label": {
     "username": "Username",
     "password": "Password",

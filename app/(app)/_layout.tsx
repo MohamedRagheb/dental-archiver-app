@@ -6,6 +6,8 @@ import AppNavigation from '@/components/Layout/MainLayout/AppNavigation';
 import { useAuthStore } from '@/stores/AuthStore';
 import { getItem } from 'expo-secure-store';
 import enviroment from '@/Utils/enviroment';
+import { I18nManager } from 'react-native';
+import i18n from 'i18next';
 
 export default function AppLayout() {
   const { getUserData, setUserData } = useAuthStore();

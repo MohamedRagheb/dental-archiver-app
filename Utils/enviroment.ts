@@ -14,6 +14,7 @@ export default {
   App_Mode: process.env.EXPO_PUBLIC_MODE,
 
   // Localization
+  Locale_key: 'locale',
   language: 'en',
   supportedLanguages: ['ar', 'en'] as TLocales[],
   fallbackLng: 'en',
