@@ -18,8 +18,8 @@ export default function Typography({
   return (
     <Text
       style={{
+        textAlign: 'left',
         ...rule,
-        ...{ textAlign: i18n.language === 'en' ? 'right' : 'left' },
         ...(style as any),
       }}
       {...restProps}

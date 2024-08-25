@@ -3,7 +3,8 @@ import { number, object, ref, string } from 'yup';
 export type IAuthSchemas =
   | 'loginSchema'
   | 'SignupSchema'
-  | 'ForgetPasswordSchema';
+  | 'ForgetPasswordSchema'
+  | 'EditProfileSchema';
 
 export const loginSchema = object({
   username: string().min(5).required(),
@@ -37,4 +38,9 @@ export const ForgetPasswordSchema = object({
       then: (schema) => schema.required(),
       otherwise: (_) => _,
     }),
+});
+
+export const EditProfileSchema = object({
+  first_name: string().required(),
+  last_name: string().required(),
 });

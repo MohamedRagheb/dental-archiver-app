@@ -21,7 +21,8 @@
     "enter_new_password": "Enter New Password",
     "enter_password_confirm": "Enter Password Confirm",
     "back_to_login": "Back To Login",
-    "language": "Language"
+    "language": "Language",
+    "enter_ur_first_name": "Enter Your First Name"
   },
   "edit_profile": {
     "joined_in": "You Joined In {{date}}",

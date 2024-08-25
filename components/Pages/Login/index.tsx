@@ -58,7 +58,7 @@ export default function LoginForm() {
         schemaName={'loginSchema'}
       >
         <Input
-          label={'label.username'}
+          label={'username'}
           name={'username'}
           placeholder={'label.username'}
         />

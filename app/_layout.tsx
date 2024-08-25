@@ -40,7 +40,7 @@ export default function RootLayout() {
       <Stack
         screenOptions={{
           contentStyle: {
-            direction: i18n.language ? 'rtl' : 'ltr',
+            direction: i18n.language === 'ar' ? 'rtl' : 'ltr',
           },
         }}
       />

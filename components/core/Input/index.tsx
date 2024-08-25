@@ -43,7 +43,7 @@ export default function Input<T extends FieldValues>({
                   color: !!errors[name] ? 'red' : 'black',
                 }}
               >
-                {t(label)}
+                {t(`label.${label}`)}
               </Text>
             )}
             <TextInput

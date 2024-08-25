@@ -17,6 +17,7 @@ import { languagesData } from '@/components/Pages/Profile/Settings/constant';
 import { setItemAsync } from 'expo-secure-store';
 
 import { reloadAsync } from 'expo-updates';
+import { Icon } from '@/components/core/Icon';
 
 const LanguageDialog = (_: any, modalRef: any) => {
   const { t, i18n } = useTranslation();
@@ -39,14 +40,26 @@ const LanguageDialog = (_: any, modalRef: any) => {
               onPress={() => handleChangeLanguage(item)}
             >
               <View style={{ display: 'flex', gap: 16, flexDirection: 'row' }}>
-                <Image
-                  height={28}
-                  width={28}
-                  source={{
-                    uri: languagesData[item].flagUrl,
-                  }}
-                />
-                <Typography variant={'h5'}>{t(`languages.${item}`)}</Typography>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Image
+                    height={28}
+                    width={28}
+                    source={{
+                      uri: languagesData[item].flagUrl,
+                    }}
+                  />
+                </View>
+                <Typography
+                  style={
+                    item === i18n.language && {
+                      color: '#312EA2',
+                      fontWeight: 600,
+                    }
+                  }
+                  variant={'h5'}
+                >
+                  {t(`languages.${item}`)}
+                </Typography>
               </View>
             </TouchableWithoutFeedback>
           )}

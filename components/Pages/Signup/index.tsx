@@ -51,19 +51,15 @@ export default function SignupForm() {
       >
         <Input
           name={'first_name'}
-          label={'label.first_name'}
+          label={'first_name'}
           placeholder={'label.first_name'}
         />
         <Input
           name={'last_name'}
-          label={'label.last_name'}
+          label={'last_name'}
           placeholder={'label.last_name'}
         />
-        <Input
-          name={'email'}
-          label={'label.email'}
-          placeholder={'label.email'}
-        />
+        <Input name={'email'} label={'email'} placeholder={'label.email'} />
         <PasswordInput
           name={'password'}
           label={'label.password'}
