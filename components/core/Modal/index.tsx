@@ -43,7 +43,7 @@ const Dialog = (
       ref={ref}
       visible={isVisible}
       onRequestClose={() => setIsVisible(false)}
-      animationType='fade'
+      animationType='slide'
       transparent={props.transparent ?? true}
     >
       <TouchableWithoutFeedback onPress={() => !persistent && closeModal()}>

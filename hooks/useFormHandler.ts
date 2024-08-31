@@ -3,6 +3,7 @@ import {
   useForm,
   DefaultValues,
   UseFormReturn,
+  Path,
 } from 'react-hook-form';
 import { AnyObject, ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -33,6 +34,7 @@ export interface IFormHandlerReturn<T extends FieldValues>
   extends UseFormReturn<T> {
   submit: () => void;
   loading: boolean;
+  setValues: (values: Partial<T>) => void;
 }
 export default function useFormHandler<T extends FieldValues>({
   defaultValues,
@@ -63,6 +65,11 @@ export default function useFormHandler<T extends FieldValues>({
   return {
     ...formDetails,
     ...formDetails.formState,
+    setValues: (values) => {
+      for (const key in values) {
+        formDetails.setValue(key as any, values[key]!);
+      }
+    },
     loading,
     submit,
   };

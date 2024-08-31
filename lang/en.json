@@ -22,12 +22,16 @@
     "enter_password_confirm": "Enter Password Confirm",
     "back_to_login": "Back To Login",
     "language": "Language",
-    "enter_ur_first_name": "Enter Your First Name"
+    "enter_ur_first_name": "Enter Your First Name",
+    "enter_ur_last_name": "Enter Your Last Name",
+    "update_profile": "Update Profile",
+    "back_to_profile": "Back To Profile"
   },
   "edit_profile": {
     "joined_in": "You Joined In {{date}}",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "change_password": "Change Password"
   },
   "languages": {
     "en": "English",

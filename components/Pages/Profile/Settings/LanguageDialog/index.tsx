@@ -12,19 +12,18 @@ import { useTranslation } from 'react-i18next';
 import { forwardRef } from 'react';
 
 // Constants
-import enviroment from '@/Utils/enviroment';
+import environment from '@/Utils/enviroment';
 import { languagesData } from '@/components/Pages/Profile/Settings/constant';
 import { setItemAsync } from 'expo-secure-store';
 
 import { reloadAsync } from 'expo-updates';
-import { Icon } from '@/components/core/Icon';
 
 const LanguageDialog = (_: any, modalRef: any) => {
   const { t, i18n } = useTranslation();
 
   const handleChangeLanguage = async (newLocale: TLocales) => {
     await i18n.changeLanguage(newLocale);
-    await setItemAsync(enviroment.Locale_key, newLocale);
+    await setItemAsync(environment.Locale_key, newLocale);
     modalRef?.current?.closeModal();
     await reloadAsync();
   };
@@ -33,7 +32,7 @@ const LanguageDialog = (_: any, modalRef: any) => {
     <Dialog persistent ref={modalRef} title='system_language'>
       <View style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
         <Each<TLocales>
-          of={enviroment.supportedLanguages}
+          of={environment.supportedLanguages}
           render={(item, index) => (
             <TouchableWithoutFeedback
               key={index}

@@ -1,27 +1,73 @@
-import { SafeAreaView, View } from 'react-native';
+import { Button, SafeAreaView, View } from 'react-native';
+
+// Components
+import Form from '@/components/core/Form';
+import Input from '@/components/core/Input';
+import FormButton from '@/components/core/Button/FormButton';
 
 // Hooks
 import useEditProfile from '@/components/Pages/EditProfile/useEditProfile';
-import Form from '@/components/core/Form';
-import { IEditProfileForm } from '@/components/Pages/EditProfile/types';
-import { EditProfileSchema } from '@/Schemas/authSchemas';
-import Input from '@/components/core/Input';
+
+// Types
+import type { IEditProfileForm } from '@/components/Pages/EditProfile/types';
+import CustomButton from '@/components/core/Button';
+import { useRouter } from 'expo-router';
 
 export default function EditProfileForm() {
   const { formRef, defaultValues, handelSubmit } = useEditProfile();
+
+  const router = useRouter();
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ height: '100%', display: 'flex' }}>
       <Form<IEditProfileForm>
         schemaName='EditProfileSchema'
         defaultValues={defaultValues}
         onSubmit={handelSubmit}
         ref={formRef}
       >
-        <View style={{ display: 'flex', flexDirection: 'column', padding: 16 }}>
+        <View
+          style={{
+            display: 'flex',
+            gap: 8,
+            padding: 16,
+          }}
+        >
+          <Input<IEditProfileForm>
+            name={'email'}
+            label={'email'}
+            editable={false}
+            placeholder={'label.enter_ur_email'}
+          />
           <Input<IEditProfileForm>
             name={'first_name'}
             label={'first_name'}
             placeholder={'label.enter_ur_first_name'}
+          />
+          <Input<IEditProfileForm>
+            name={'last_name'}
+            label={'last_name'}
+            placeholder={'label.enter_ur_last_name'}
+          />
+        </View>
+        <View
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <FormButton
+            style={{
+              backgroundColor: '#312EA2',
+              borderRadius: 100,
+              marginTop: 16,
+            }}
+            title='label.update_profile'
+          />
+          <CustomButton
+            onPress={() => router.push('/profile')}
+            color='#312EA2'
+            title='label.back_to_profile'
           />
         </View>
       </Form>
