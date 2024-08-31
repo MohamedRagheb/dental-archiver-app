@@ -36,7 +36,7 @@ const Dialog = (
     closeModal: () => closeModal(),
     isOpen: () => isVisible,
   }));
-
+//TODO:add_animation_slide
   return (
     <Modal
       {...props}
