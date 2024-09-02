@@ -53,7 +53,8 @@ export default function useFormHandler<T extends FieldValues>({
     try {
       setLoading(true);
       return await formDetails.handleSubmit(onSubmit, (errors) => {
-        if (enviroment.App_Mode === 'development') console.log(errors);
+        if (enviroment.App_Mode === 'development')
+          console.log('form Errors', errors);
       })();
     } catch (e) {
       return console.log(e);

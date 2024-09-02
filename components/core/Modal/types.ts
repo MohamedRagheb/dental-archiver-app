@@ -3,6 +3,7 @@ import { ITypographyProps } from '@/components/core/Typography/rules';
 import { ReactElement } from 'react';
 
 interface IModalSlotsProps {
+  modalPaper: ViewProps;
   header: ViewProps;
   content: ViewProps;
   title: ITypographyProps;
@@ -17,6 +18,7 @@ export interface IModalProps extends ModalProps {
   title: string;
   slots?: Partial<IModalSlots>;
   slotProps?: Partial<IModalSlotsProps>;
+  onClose?: () => void;
 }
 
 export interface IModalRef {

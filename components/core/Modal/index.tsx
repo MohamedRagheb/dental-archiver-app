@@ -1,11 +1,12 @@
 // Components
-import { Modal, TouchableWithoutFeedback, View } from 'react-native';
+import { Modal, TextBase, TouchableWithoutFeedback, View } from 'react-native';
 import Typography from '@/components/core/Typography';
 import { IModalProps, IModalRef } from '@/components/core/Modal/types';
-import {
+import React, {
   forwardRef,
   LegacyRef,
   PropsWithChildren,
+  ReactChild,
   Ref,
   useImperativeHandle,
   useState,
@@ -19,6 +20,7 @@ const Dialog = (
     persistent,
     title,
     isCentered,
+    onClose,
     ...props
   }: PropsWithChildren<IModalProps>,
   ref: any
@@ -28,6 +30,7 @@ const Dialog = (
   const [isVisible, setIsVisible] = useState(false);
 
   const closeModal = () => {
+    onClose && onClose();
     setIsVisible(false);
   };
 
@@ -36,13 +39,13 @@ const Dialog = (
     closeModal: () => closeModal(),
     isOpen: () => isVisible,
   }));
-//TODO:add_animation_slide
+  //TODO:add_animation_slide
   return (
     <Modal
       {...props}
       ref={ref}
       visible={isVisible}
-      onRequestClose={() => setIsVisible(false)}
+      onRequestClose={() => closeModal()}
       animationType='slide'
       transparent={props.transparent ?? true}
     >
@@ -60,6 +63,7 @@ const Dialog = (
             onPress={(e) => !persistent && e.stopPropagation()}
           >
             <View
+              {...props?.slotProps?.modalPaper}
               style={{
                 width: '100%',
                 display: 'flex',
@@ -74,6 +78,7 @@ const Dialog = (
                 shadowOpacity: 0.25,
                 shadowRadius: 4,
                 elevation: 5,
+                ...(props?.slotProps?.modalPaper?.style as any),
               }}
             >
               {props?.slots?.header ?? (
@@ -98,8 +103,20 @@ const Dialog = (
                   </TouchableWithoutFeedback>
                 </View>
               )}
-              <View style={{ paddingBottom: 16 }} {...props.slotProps?.content}>
-                {children}
+              <View
+                {...props.slotProps?.content}
+                style={{
+                  paddingBottom: 16,
+                  ...(props.slotProps?.content?.style as any),
+                }}
+              >
+                {React.Children.map(
+                  children as ReactChild[],
+                  (child: ReactChild) =>
+                    React.isValidElement(child)
+                      ? React.cloneElement<any>(child)
+                      : child
+                )}
               </View>
             </View>
           </TouchableWithoutFeedback>

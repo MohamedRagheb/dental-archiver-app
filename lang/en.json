@@ -1,9 +1,14 @@
 {
   "hallo": "hi all",
   "modal": {
-    "system_language": "App Language"
+    "system_language": "App Language",
+    "chnage_password": "Chnage Password"
   },
   "label": {
+    "enter_ur_current_password": "Enter Your Current Password",
+    "enter_ur_new_password": "Enter New Password",
+    "new_password_confirm": "New Password Confirm",
+    "enter_ur_confirm_new_password": "Confirm New Password",
     "username": "Username",
     "password": "Password",
     "submit": "Submit",
@@ -25,7 +30,8 @@
     "enter_ur_first_name": "Enter Your First Name",
     "enter_ur_last_name": "Enter Your Last Name",
     "update_profile": "Update Profile",
-    "back_to_profile": "Back To Profile"
+    "back_to_profile": "Back To Profile",
+    "change_password": "Change Password"
   },
   "edit_profile": {
     "joined_in": "You Joined In {{date}}",
@@ -36,5 +42,8 @@
   "languages": {
     "en": "English",
     "ar": "Arabic"
+  },
+  "validations": {
+    "password_not_match": "Password Not Match"
   }
 }

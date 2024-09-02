@@ -1,10 +1,12 @@
-import { number, object, ref, string } from 'yup';
+import { object, ref, string } from 'yup';
+import i18n from '@/lang';
 
 export type IAuthSchemas =
   | 'loginSchema'
   | 'SignupSchema'
   | 'ForgetPasswordSchema'
-  | 'EditProfileSchema';
+  | 'EditProfileSchema'
+  | 'ChangePasswordSchema';
 
 export const loginSchema = object({
   username: string().min(5).required(),
@@ -43,4 +45,12 @@ export const ForgetPasswordSchema = object({
 export const EditProfileSchema = object({
   first_name: string().required(),
   last_name: string().required(),
+});
+
+export const ChangePasswordSchema = object({
+  password: string().required().min(6),
+  password_confirm: string()
+    .equals([ref('password')], i18n.t('validations.password_not_match'))
+    .required(),
+  old_password: string().required(),
 });

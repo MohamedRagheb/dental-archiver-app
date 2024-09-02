@@ -1,5 +1,5 @@
 import { Text, TouchableWithoutFeedback, View } from 'react-native';
-import { Icon } from '@/components/core/Icon';
+import { Icon, IIcon } from '@/components/core/Icon';
 import { ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import Typography from '@/components/core/Typography';
@@ -9,11 +9,13 @@ export default function SettingItem({
   selectedValue,
   hiddenArrow,
   onPress,
+  icon,
 }: {
   onPress?: () => void;
   text: string;
   selectedValue?: ReactNode;
   hiddenArrow?: boolean;
+  icon?: IIcon;
 }) {
   const { t } = useTranslation();
 
@@ -36,8 +38,8 @@ export default function SettingItem({
         {!hiddenArrow && (
           <Icon
             style={{ color: 'gray' }}
-            name='arrow-forward-ios'
-            lib='MaterialIcons'
+            name={icon?.name ?? '  arrow-forward-ios'}
+            lib={icon?.lib ?? 'MaterialIcons'}
           />
         )}
       </View>
