@@ -1,16 +1,17 @@
 // Components
-import Typography from '@/components/core/Typography';
+import { Link } from 'expo-router';
 import { Image, View } from 'react-native';
+import { Icon } from '@/components/core/Icon';
+import Typography from '@/components/core/Typography';
 
 // Hooks
 import { useTranslation } from 'react-i18next';
 
 // Types
-import { IUser } from '@/types';
+import type { IUser } from '@/types';
+
+// Utils
 import { dateToString } from '@/Utils/date';
-import { useEffect } from 'react';
-import { Icon } from '@/components/core/Icon';
-import { Link } from 'expo-router';
 
 export default function UserInformation({ userData }: { userData: IUser }) {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ export default function UserInformation({ userData }: { userData: IUser }) {
         <Image
           style={{ height: 60, width: 60, borderRadius: 50 }}
           source={{
-            uri: 'https://reactnative.dev/img/tiny_logo.png',
+            uri: userData?.avatar?.url,
           }}
         />
         <View style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>

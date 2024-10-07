@@ -23,6 +23,7 @@ export default function UseEditProfile() {
         url: 'auth/profile',
         data: restBody,
       });
+
       getUserData();
     } catch {}
   };

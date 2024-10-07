@@ -1,9 +1,10 @@
 // singleton class
 import axiosInstance from '../config/axios';
+import type { AxiosRequestConfig } from 'axios';
 
 type TUrl = { url: string };
 type TGet = TUrl & { query?: { [key: string]: any } };
-type TPost = TUrl & { data: { [key: string]: any } };
+type TPost = TUrl & { data: { [key: string]: any } } & AxiosRequestConfig<any>;
 
 interface IHttp {
   get<T>({ url, query }: TGet): Promise<T>;
@@ -30,11 +31,12 @@ class Http implements IHttp {
     });
   }
 
-  post<T>({ url, data }: TPost): Promise<T> {
+  post<T>({ url, data, ...rest }: TPost): Promise<T> {
     return axiosInstance({
       url,
       data,
       method: 'post',
+      ...rest,
     });
   }
   put<T>({ url, data }: TPost): Promise<T> {

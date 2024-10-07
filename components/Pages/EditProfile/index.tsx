@@ -1,17 +1,17 @@
-import { Button, SafeAreaView, View } from 'react-native';
-
 // Components
+import { SafeAreaView, View } from 'react-native';
 import Form from '@/components/core/Form';
 import Input from '@/components/core/Input';
+import CustomButton from '@/components/core/Button';
+import UploadMedia from '@/components/core/UploadMedia';
 import FormButton from '@/components/core/Button/FormButton';
 
 // Hooks
-import useEditProfile from '@/components/Pages/EditProfile/useEditProfile';
+import { useRouter } from 'expo-router';
+import useEditProfile from './useEditProfile';
 
 // Types
 import type { IEditProfileForm } from '@/components/Pages/EditProfile/types';
-import CustomButton from '@/components/core/Button';
-import { useRouter } from 'expo-router';
 
 export default function EditProfileForm() {
   const { formRef, defaultValues, handelSubmit } = useEditProfile();
@@ -32,6 +32,7 @@ export default function EditProfileForm() {
             padding: 16,
           }}
         >
+          <UploadMedia />
           <Input<IEditProfileForm>
             name={'email'}
             label={'email'}
