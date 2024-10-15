@@ -4,7 +4,9 @@ import type { AxiosRequestConfig } from 'axios';
 
 type TUrl = { url: string };
 type TGet = TUrl & { query?: { [key: string]: any } };
-type TPost = TUrl & { data: { [key: string]: any } } & AxiosRequestConfig<any>;
+type TPost = TUrl & {
+  data: { [key: string]: any } | FormData;
+} & AxiosRequestConfig<any>;
 
 interface IHttp {
   get<T>({ url, query }: TGet): Promise<T>;

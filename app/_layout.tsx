@@ -16,7 +16,6 @@ SplashScreen.preventAutoHideAsync();
 import 'react-native-reanimated';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import I18n from '@/lang';
-import { I18nManager } from 'react-native';
 
 export default function RootLayout() {
   const { i18n } = useTranslation();

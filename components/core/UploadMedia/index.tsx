@@ -1,14 +1,16 @@
 // Components
+import { Image } from 'react-native';
 import CustomButton from '@/components/core/Button';
+import Typography from '@/components/core/Typography';
 
 // Container
 import useUploadMedia from './useUploadMedia';
 
 // Types
 import type { IUploadMediaProps } from './types';
+
+// Utils
 import { Each } from '@/components/core/Each';
-import Typography from '@/components/core/Typography';
-import { Image } from 'react-native';
 
 export default function UploadMedia({
   launchImageProps,

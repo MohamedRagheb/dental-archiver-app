@@ -4,8 +4,15 @@ import type { IEditProfileForm } from '@/components/Pages/EditProfile/types';
 
 // Hooks
 import { useEffect, useRef } from 'react';
-import { useAuthStore } from '@/stores/AuthStore';
+
+// Api
 import { $http } from '@/api';
+
+// Stores
+import { useAuthStore } from '@/stores/AuthStore';
+
+// Router
+import { router } from 'expo-router';
 
 export default function UseEditProfile() {
   const formRef = useRef<IFormRefProps<IEditProfileForm>>();
@@ -15,26 +22,35 @@ export default function UseEditProfile() {
     first_name: '',
     last_name: '',
     email: '',
+    avatar: null,
   };
 
-  const handelSubmit = async ({ email, ...restBody }: IEditProfileForm) => {
+  const handelSubmit = async ({
+    email,
+    avatar,
+    ...restBody
+  }: IEditProfileForm) => {
     try {
       await $http.post({
         url: 'auth/profile',
-        data: restBody,
+        data: { ...restBody, avatarId: (avatar as number[])[0] },
       });
-
       getUserData();
+
+      setTimeout(() => {
+        router.push('/profile');
+      }, 500);
     } catch {}
   };
 
   useEffect(() => {
     if (userData) {
-      const { first_name, last_name, email } = userData;
+      const { first_name, last_name, email, avatar } = userData;
       formRef?.current?.setValues({
         first_name,
         email,
         last_name,
+        ...(!!avatar && { avatar }),
       });
     }
   }, [userData]);

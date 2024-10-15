@@ -34,6 +34,6 @@ export function Icon({ name, lib, ...props }: IIcon) {
       {...props}
       name={name}
       style={{ fontSize: 20, alignSelf: 'center', ...props.style }}
-    ></IconComponent>
+    />
   );
 }

@@ -3,11 +3,13 @@ import { SafeAreaView, View } from 'react-native';
 import Form from '@/components/core/Form';
 import Input from '@/components/core/Input';
 import CustomButton from '@/components/core/Button';
-import UploadMedia from '@/components/core/UploadMedia';
+import Avatar from '@/components/core/UploadMedia/Avatar';
 import FormButton from '@/components/core/Button/FormButton';
 
 // Hooks
 import { useRouter } from 'expo-router';
+
+// Container
 import useEditProfile from './useEditProfile';
 
 // Types
@@ -32,7 +34,7 @@ export default function EditProfileForm() {
             padding: 16,
           }}
         >
-          <UploadMedia />
+          <Avatar placeholderName='hallo world' name='avatar' />
           <Input<IEditProfileForm>
             name={'email'}
             label={'email'}

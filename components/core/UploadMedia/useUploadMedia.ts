@@ -1,55 +1,80 @@
-import { useState } from 'react';
+// Hooks
+import { useMemo, useState } from 'react';
 
 // Third Parties
 import { launchImageLibraryAsync, MediaTypeOptions } from 'expo-image-picker';
 
 // Types
-import type { IUploadMediaContainerProps, IFile } from './types';
+import type { IServerResponse } from '@/types';
+import type {
+  IUploadMediaContainerProps,
+  IFile,
+  IUploadMediaContainerReturn,
+} from './types';
 
-// Utils
+// Http
 import { $http } from '@/api';
 
-import { Buffer } from 'buffer';
+// Configs
+import { Platform } from 'react-native';
 
-const FormData = global.FormData;
+// React Hook Form
+import { useFormContext } from 'react-hook-form';
+
 export default function useUploadMedia({
   launchImageProps,
-}: IUploadMediaContainerProps) {
+  name,
+}: IUploadMediaContainerProps): IUploadMediaContainerReturn {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const { setValue, getValues, watch } = useFormContext();
+
   const [selectedImages, setSelectedImages] = useState<IFile[]>([]);
 
-  const genrateUploadMediaFormDate = (pickedData: IFile | IFile[]) => {
+  const combinedCurrentValue = useMemo(() => {
+    const _Value = getValues(name);
+    const _arrayOfValue = Array.isArray(_Value) ? _Value : [_Value];
+
+    const notIdsCurrentFormValue = _arrayOfValue.filter(
+      (ele: object | number) => typeof ele !== 'number'
+    );
+    return [...notIdsCurrentFormValue, ...selectedImages];
+  }, [watch(name), selectedImages]);
+
+  const genrateUploadMediaFormDate = (pickedData: IFile[]) => {
     const formData = new FormData();
-    if (Array.isArray(pickedData)) {
-      const pickedFile = pickedData[0];
-      console.log(pickedFile);
-      formData.append(`images`, {
-        uri: pickedFile.uri,
-        name: pickedFile.uri,
-        type: pickedFile.type || 'image/jpeg',
-      } as any);
+    if (Array.isArray(pickedData) && !!pickedData.length) {
+      pickedData.forEach((file, index) => {
+        formData.append(`images[${index}]`, {
+          uri:
+            Platform.OS === 'ios' ? file.uri.replace('file://', '') : file.uri,
+          name: file.fileName ?? `${Date.now()}.jpg`,
+          type: file.mimeType ?? 'image/jpeg',
+        } as any);
+      });
     }
     return formData;
   };
 
-  const UploadImage = async (pickedData: IFile | IFile[]) => {
+  const UploadImage = async (pickedData: IFile[]) => {
     try {
+      setIsLoading(true);
       const generatedForm = genrateUploadMediaFormDate(pickedData);
 
-      const res = await $http.post({
+      const { data } = await $http.post<IServerResponse<{ ids: number[] }>>({
         url: 'media/upload',
         data: generatedForm,
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-        transformRequest: (data, headers) => {
-          console.log(data);
-          return generatedForm;
-        },
       });
-    } catch (e) {
-      console.log(e);
+      if (data?.ids) setValue(name, [...data?.ids]);
+    } catch {
+    } finally {
+      setIsLoading(false);
     }
   };
+
   const pickImage = async () => {
     let result = await launchImageLibraryAsync({
       mediaTypes: MediaTypeOptions.All,
@@ -63,5 +88,5 @@ export default function useUploadMedia({
       setSelectedImages(result.assets);
     }
   };
-  return { pickImage, selectedImages };
+  return { pickImage, selectedImages, combinedCurrentValue, isLoading };
 }
