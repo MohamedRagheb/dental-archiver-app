@@ -12,9 +12,9 @@ import { FieldValues } from 'react-hook-form';
 // Hooks
 import { useState } from 'react';
 
-export default function PasswordInput<T extends FieldValues>({
+const PasswordInput = <T extends FieldValues>({
   ...props
-}: ITextInputProps<T>) {
+}: ITextInputProps<T>) => {
   const [isPlain, setIsPlain] = useState(false);
 
   return (
@@ -28,4 +28,6 @@ export default function PasswordInput<T extends FieldValues>({
       {...props}
     />
   );
-}
+};
+
+export default PasswordInput;

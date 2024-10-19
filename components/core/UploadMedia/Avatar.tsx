@@ -1,5 +1,6 @@
 // Types
 import type { IMediaResource } from '@/types';
+import type { FieldValues } from 'react-hook-form';
 import type { IAvatarProps, IFile } from './types';
 
 import { memo, useMemo } from 'react';
@@ -11,8 +12,9 @@ import { Image, TouchableWithoutFeedback, View } from 'react-native';
 // Hooks
 import useUploadMedia from './useUploadMedia';
 
-const Avatar: React.FC<IAvatarProps> = (props) => {
-  const { pickImage, combinedCurrentValue, isLoading } = useUploadMedia(props);
+const Avatar = <T extends FieldValues>(props: IAvatarProps<T>) => {
+  const { pickImage, combinedCurrentValue, isLoading } =
+    useUploadMedia<T>(props);
 
   const placeholderUiAvatar = `https://ui-avatars.com/api/?name=${props.placeholderName.replace(' ', '+')}`;
 

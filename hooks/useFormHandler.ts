@@ -3,12 +3,11 @@ import {
   useForm,
   DefaultValues,
   UseFormReturn,
-  Path,
 } from 'react-hook-form';
-import { AnyObject, ObjectSchema } from 'yup';
+import type { AnyObject, ObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import getSchema, { ISchemasName } from '@/Schemas';
-import { useEffect, useState } from 'react';
+import getSchema, { type ISchemasName } from '@/Schemas';
+import { type Dispatch, useState } from 'react';
 import enviroment from '@/Utils/enviroment';
 
 interface IPropsBase<T extends AnyObject> {
@@ -35,6 +34,7 @@ export interface IFormHandlerReturn<T extends FieldValues>
   submit: () => void;
   loading: boolean;
   setValues: (values: Partial<T>) => void;
+  setLoading: Dispatch<boolean>;
 }
 export default function useFormHandler<T extends FieldValues>({
   defaultValues,
@@ -72,6 +72,7 @@ export default function useFormHandler<T extends FieldValues>({
       }
     },
     loading,
+    setLoading,
     submit,
   };
 }

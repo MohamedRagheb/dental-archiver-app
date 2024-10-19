@@ -13,13 +13,13 @@ import { useTranslation } from 'react-i18next';
 import { ITextInputProps } from '@/components/core/Input/types';
 import IconButton from '@/components/core/Icon';
 
-export default function Input<T extends FieldValues>({
+const Input = <T extends FieldValues>({
   placeholder,
   name,
   label,
   icon,
   ...props
-}: ITextInputProps<T>) {
+}: ITextInputProps<T>) => {
   const { style, ...restProps } = props;
   const { t } = useTranslation();
   const {
@@ -99,4 +99,6 @@ export default function Input<T extends FieldValues>({
       )}
     />
   );
-}
+};
+
+export default Input;

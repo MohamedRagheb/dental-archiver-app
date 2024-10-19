@@ -16,3 +16,5 @@ export interface IMediaResource {
 }
 
 export type TLocales = 'en' | 'ar';
+
+export interface IGenericTransparent<T> {}

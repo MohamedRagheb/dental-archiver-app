@@ -3,7 +3,8 @@ import { useFormContext } from 'react-hook-form';
 import { IFormHandlerReturn } from '@/hooks/useFormHandler';
 import CustomButton from '@/components/core/Button/index';
 import { ActivityIndicator } from 'react-native';
-export default function FormButton({ ...props }: IFormButton) {
+import { memo } from 'react';
+const FormButton = ({ ...props }: IFormButton) => {
   const { submit, loading } = useFormContext() as IFormHandlerReturn<any>;
 
   return (
@@ -13,4 +14,6 @@ export default function FormButton({ ...props }: IFormButton) {
       {...props}
     />
   );
-}
+};
+
+export default memo(FormButton);

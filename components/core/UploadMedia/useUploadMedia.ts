@@ -11,6 +11,7 @@ import type {
   IFile,
   IUploadMediaContainerReturn,
 } from './types';
+import type { IFormHandlerReturn } from '@/hooks/useFormHandler';
 
 // Http
 import { $http } from '@/api';
@@ -19,15 +20,20 @@ import { $http } from '@/api';
 import { Platform } from 'react-native';
 
 // React Hook Form
-import { useFormContext } from 'react-hook-form';
+import { type FieldValues, useFormContext } from 'react-hook-form';
 
-export default function useUploadMedia({
+export default function useUploadMedia<T extends FieldValues>({
   launchImageProps,
   name,
-}: IUploadMediaContainerProps): IUploadMediaContainerReturn {
+}: IUploadMediaContainerProps<T>): IUploadMediaContainerReturn {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { setValue, getValues, watch } = useFormContext();
+  const {
+    setValue,
+    getValues,
+    watch,
+    setLoading: setFormIsLoading,
+  } = useFormContext() as IFormHandlerReturn<T>;
 
   const [selectedImages, setSelectedImages] = useState<IFile[]>([]);
 
@@ -59,6 +65,7 @@ export default function useUploadMedia({
   const UploadImage = async (pickedData: IFile[]) => {
     try {
       setIsLoading(true);
+      setFormIsLoading(true);
       const generatedForm = genrateUploadMediaFormDate(pickedData);
 
       const { data } = await $http.post<IServerResponse<{ ids: number[] }>>({
@@ -68,10 +75,11 @@ export default function useUploadMedia({
           'Content-Type': 'multipart/form-data',
         },
       });
-      if (data?.ids) setValue(name, [...data?.ids]);
+      if (data?.ids) setValue(name, [...data?.ids] as any);
     } catch {
     } finally {
       setIsLoading(false);
+      setFormIsLoading(false);
     }
   };
 

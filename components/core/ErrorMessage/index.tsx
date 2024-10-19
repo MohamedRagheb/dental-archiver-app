@@ -6,13 +6,12 @@ import { Path } from 'react-hook-form';
 import { FieldErrors, FieldValues } from 'react-hook-form';
 
 // Hooks
-import { useState } from 'react';
+import { useState, memo } from 'react';
 
-export default function ErrorMessage<T extends FieldValues>({
-  error,
-}: {
+interface IProps<T extends FieldValues> {
   error: FieldErrors<T>[Path<T>];
-}) {
+}
+const ErrorMessage = <T extends FieldValues>({ error }: IProps<T>) => {
   const [long, setLong] = useState<boolean>(false);
   return (
     <TouchableOpacity activeOpacity={0.9} onPress={() => setLong(!long)}>
@@ -35,4 +34,8 @@ export default function ErrorMessage<T extends FieldValues>({
       )}
     </TouchableOpacity>
   );
-}
+};
+
+export default memo(ErrorMessage) as <T extends FieldValues>(
+  arg: IProps<T>
+) => JSX.Element;
