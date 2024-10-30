@@ -1,5 +1,5 @@
 // Hooks
-import { router, Slot, Stack, usePathname } from 'expo-router';
+import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 
@@ -13,7 +13,6 @@ import * as SplashScreen from 'expo-splash-screen';
 SplashScreen.preventAutoHideAsync();
 
 // Utils
-import 'react-native-reanimated';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import I18n from '@/lang';
 

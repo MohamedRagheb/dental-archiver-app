@@ -13,6 +13,11 @@ export const navigationLinks: INavigationItem[] = [
     icon: { name: 'home', lib: 'Feather' },
   },
   {
+    to: '/patients',
+    text: 'patients',
+    icon: { name: 'person', lib: 'Ionicons' },
+  },
+  {
     to: '/profile',
     text: 'profile',
     icon: { name: 'person-outline', lib: 'Ionicons' },

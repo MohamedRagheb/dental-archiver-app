@@ -3,9 +3,9 @@ import type { ReactNode } from 'react';
 import type { TextProps, GestureResponderEvent } from 'react-native';
 
 export namespace ExpoRouter {
-  type StaticRoutes = `/` | `/(app)` | `/(auth)/forget-password` | `/(auth)/login` | `/(auth)/signup` | `/_sitemap` | `/edit-profile` | `/forget-password` | `/login` | `/profile` | `/signup`;
-  type DynamicRoutes<T extends string> = never;
-  type DynamicRouteTemplate = never;
+  type StaticRoutes = `/` | `/(app)` | `/(auth)/forget-password` | `/(auth)/login` | `/(auth)/signup` | `/_sitemap` | `/edit-profile` | `/forget-password` | `/login` | `/patients` | `/profile` | `/signup`;
+  type DynamicRoutes<T extends string> = `/patients/edit/${SingleRoutePart<T>}`;
+  type DynamicRouteTemplate = `/patients/edit/[slug]`;
 
   export type RelativePathString = `./${string}` | `../${string}` | '..';
   export type AbsoluteRoute = DynamicRouteTemplate | StaticRoutes;

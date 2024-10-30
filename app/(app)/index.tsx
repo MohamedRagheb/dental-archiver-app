@@ -1,4 +1,4 @@
-import { SafeAreaView, Text } from 'react-native';
+import { SafeAreaView, Text, View, StyleSheet } from 'react-native';
 import CustomButton from '@/components/core/Button';
 
 // Auth
@@ -18,8 +18,19 @@ export default function () {
 
   return (
     <SafeAreaView>
+      <View style={styles.container}></View>
       <Text>hellso</Text>
       <CustomButton color={'red'} onPress={() => logout()} title={'signout'} />
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  page: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});

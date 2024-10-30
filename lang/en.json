@@ -5,6 +5,7 @@
     "chnage_password": "Chnage Password"
   },
   "label": {
+    "patient_age": "Age: {{age}} y",
     "enter_ur_current_password": "Enter Your Current Password",
     "enter_ur_new_password": "Enter New Password",
     "new_password_confirm": "New Password Confirm",
